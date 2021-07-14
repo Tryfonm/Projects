@@ -6,7 +6,7 @@ import multiprocessing
 from multiprocessing import Pool, Lock, cpu_count
 
 
-class BaggingTree():
+class BaggingTrees():
     def __init__(self, n_trees: int, n_samples: int, depth: int):
         """
         Parameters
@@ -44,7 +44,7 @@ class BaggingTree():
         A tree object.
         """
         mytree = DecisionTree.DecisionTree(max_depth=d)
-        mytree.fit(x, y, n_features_to_consider=None, print_while_growing=True)  # n_features_to_consider=None ignores the argument
+        mytree.fit(x, y, n_features_to_consider=None, print_while_growing=False)  # n_features_to_consider=None ignores the argument
         return mytree
 
     def fit(self, x_train, y_train, n_workers=None):
@@ -79,8 +79,8 @@ class BaggingTree():
         for process in range(self._n_trees):
             # The second tuple returns the data instances that were not sample and could be used as a validation set for the current tree
             # Theoretically speaking, the unsampeld part of the dataset is expeted to be 1/3 of the initial dataset.
-            (x_bs, y_bs), (_, _) = BaggingTree.bootstrap_dataset(self._x, self._y, self._n_samples)
-            processes.append(pool.apply_async(BaggingTree.grow_a_tree, args=(x_bs, y_bs, self._depth)))
+            (x_bs, y_bs), (_, _) = BaggingTrees.bootstrap_dataset(self._x, self._y, self._n_samples)
+            processes.append(pool.apply_async(BaggingTrees.grow_a_tree, args=(x_bs, y_bs, self._depth)))
         pool.close()
         pool.join()
         finish = time.perf_counter()
@@ -144,11 +144,11 @@ class BaggingTree():
 
 
 if __name__ == '__main__':
-    bt = BaggingTree(n_trees=1, n_samples=5, depth=3)
+    bt = BaggingTrees(n_trees=1, n_samples=5, depth=3)
     x_train, y_train = DecisionTree.create_dataset()
     bt.fit(x_train=x_train, y_train=y_train, n_workers=11)
 
     test_point = np.array([-42., -55., -59., -43., -71., -77., 35.], dtype=np.float32)
     class_prediction, predicted_probabilities = bt.predict(test_point)
     print(f'The predicted class is : {class_prediction}')
-    [print(f'Predicted probability for class {x} is {predicted_probabilities[x]}%') for x in predicted_probabilities.keys()]
+    [print(f'Predicted probability for class {x} is {predicted_probabilities[x]}%.') for x in predicted_probabilities.keys()]

@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import numpy as np
+from scipy.fft._pocketfft.setup import pre_build_hook
 
 
 class DecisionTree():
@@ -303,19 +304,31 @@ class DecisionTree():
 
 
 def create_dataset():
-    dataset = pd.read_csv('./wifi_localization.txt', sep='\t', header=None)
+    dataset = pd.read_csv('./random_dataset.txt', sep='\t', header=None)
     dataset.columns = ['wifi ' + str(x) for x in range(1, 8)] + ['room']
     dataset_as_np = np.array(dataset, dtype=np.float32)
     return dataset_as_np[:, :-1], dataset_as_np[:, -1]
+
+
+def prepare_mnist():
+    import idx2numpy
+
+    images_path = './MNIST/raw/train-images-idx3-ubyte'
+    img = idx2numpy.convert_from_file(images_path)
+
+    labels_path = './MNIST/raw/train-labels-idx1-ubyte'
+    lbl = idx2numpy.convert_from_file(labels_path)
+
+    return img, lbl
 
 
 if __name__ == '__main__':
     start = time.perf_counter()
     x_train, y_train = create_dataset()
     mytree = DecisionTree(max_depth=10)
-    mytree.fit(x_train, y_train, print_while_growing=True)
+    mytree.fit(x_train, y_train, print_while_growing=False)
     finish = time.perf_counter()
     print(f'Finished in: {round(finish - start, 2)} sec(s)')
 
     test_point = np.array([-42., -55., -59., -43., -71., -77., 35.], dtype=np.float32)
-    print(f'The datapoint belongs to class: {mytree.predict(test_point)}')
+    print(f'The datapoint belongs to class: {mytree.predict(test_point)}.')

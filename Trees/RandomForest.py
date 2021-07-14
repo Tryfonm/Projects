@@ -2,12 +2,12 @@ import os
 import time
 import numpy as np
 import DecisionTree
-from BagginTrees import BaggingTree
+from BagginTrees import BaggingTrees
 import multiprocessing
 from multiprocessing import Pool, Lock, cpu_count
 
 
-class RandomForest(BaggingTree):
+class RandomForest(BaggingTrees):
     """
     A simple RandomForest implementation that uses the DecisionTree from my DecisionTree module as the base classifier
     """
@@ -76,7 +76,7 @@ class RandomForest(BaggingTree):
         for process in range(self._n_trees):
             # The second tuple returns the data instances that were not sample and could be used as a validation set for the current tree
             # Theoretically speaking, the unsampeld part of the dataset is expeted to be 1/3 of the initial dataset.
-            (x_bs, y_bs), (_, _) = BaggingTree.bootstrap_dataset(self._x, self._y, self._n_samples)
+            (x_bs, y_bs), (_, _) = BaggingTrees.bootstrap_dataset(self._x, self._y, self._n_samples)
             processes.append(pool.apply_async(RandomForest.grow_a_tree, args=(x_bs, y_bs, self._depth, self._n_features_to_consider)))
         pool.close()
         pool.join()
