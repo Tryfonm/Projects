@@ -4,7 +4,11 @@ import torch.nn as nn
 
 class ResNet34(nn.Module):
     """
-    Resnet34 implementation based on https://arxiv.org/pdf/1512.03385.pdf. Other than the MaxPooling layer at the start and the AvgPooling in the fully connected part, no Pooling layers are used between the resnet blocks. Downscaling is performed by using stride withing the convolutional layers greater than AT THE START of every block. At the same moment (meaning the exact same layer) the output filters quadruples and both the image shape and number of channels (filers) remains constant within every block. As a result, skip connections taking place at the start of each block need the respective identities to be modified accordingly.
+    Resnet34 implementation based on https://arxiv.org/pdf/1512.03385.pdf. Other than the MaxPooling layer at the start and the AvgPooling in the fully
+    connected part, no Pooling layers are used between the resnet blocks. Downscaling is performed by using stride withing the convolutional layers greater
+    than AT THE START of every block. At the same moment (meaning the exact same layer) the output filters quadruples and both the image shape and number of
+    channels (filers) remains constant within every block. As a result, skip connections taking place at the start of each block need the respective identities
+    to be modified accordingly.
     """
 
     def __init__(self, in_channels: int, num_classes: int):
@@ -81,7 +85,7 @@ class ResNet34(nn.Module):
         # block 5 - (resnet block): 256 x 14 x 14 --> 512 x 7 x 7
         x = self.conv5_x(x)
 
-        # bloxck 6 - (fully connected): flattens 512 x 7 x 7 --> 25088
+        # block 6 - (fully connected): flattens 512 x 7 x 7 --> 25088
         x = self.fc(x)
 
         return x
