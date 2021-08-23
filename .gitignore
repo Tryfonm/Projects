@@ -1,7 +1,9 @@
 .gitignore
+
 /Multiprocess/
 /Tensorflow/
 
+**/.ipynb_checkpoints
 **/Untitled*
 **/temp__*
 **/.idea/
