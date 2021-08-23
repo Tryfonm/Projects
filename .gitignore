@@ -2,10 +2,10 @@
 /Multiprocess/
 /Tensorflow/
 
-
+**/Untitled*
 **/temp__*
 **/.idea/
-**/__pycharm__
+**/__pycache__
 **/data*
 **/MNIST/
 **/models/
