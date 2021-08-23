@@ -2,6 +2,11 @@
 
 /Multiprocess/
 /Tensorflow/
+/Flask/
+/Django/
+/AWS/
+/LightGBM/
+/Requests/
 
 **/.ipynb_checkpoints
 **/Untitled*

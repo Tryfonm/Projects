@@ -3,7 +3,7 @@ import torch.nn as nn
 import torchvision
 
 
-class MyVgg(nn.Module):
+class Vgg(nn.Module):
     """
         An implementation of the VGG, without batch normalization. Reminder: expects a 224x224 RGB image.
     Outputs the raw values for the num of classes. A softmax needs to be added on top of this or a
@@ -37,7 +37,7 @@ class MyVgg(nn.Module):
             self.architecture = vgg_dict[vgg_type]
         else:
             self.architecture = custom_vgg
-
+        # print(f'Using: {self.architecture}')
         # Converting nn.ModuleList to nn.Sequential, as it generates a 'forward'-related error
         ModuleList = nn.ModuleList(self.create_features_block())
         self.features = nn.Sequential(*ModuleList)
@@ -125,8 +125,4 @@ class MyVgg(nn.Module):
 
 
 if __name__ == "__main__":
-    vgg_instance = MyVgg(num_classes=10, custom_vgg=[3, 64, 64, 'P', 128, 128, 'P', 64, 64, 64, 'P', 32, 32, 32, 'P'])
-
-    # Feed a batch of size 1 224x224 RGB picture (in fact its just a random tensor with the specified shape)
-    test = torch.randn((1, 3, 224, 224))
-    output = vgg_instance(test)
+    pass
