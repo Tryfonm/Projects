@@ -1,0 +1,11 @@
+.gitignore
+/Multiprocess/
+/Tensorflow/
+
+
+**/temp__*
+**/.idea/
+**/__pycharm__
+**/data*
+**/MNIST/
+**/models/
