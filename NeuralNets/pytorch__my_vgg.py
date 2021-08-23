@@ -21,7 +21,7 @@ class Vgg(nn.Module):
         custom_vgg : By default it's set to False; assigning a list of custom vgg architecture results in the parameter vgg_type being ignored
 
         """
-        super(MyVgg, self).__init__()
+        super().__init__()
         self.num_classes = num_classes
         if custom_vgg == False:
             vgg_dict = {
