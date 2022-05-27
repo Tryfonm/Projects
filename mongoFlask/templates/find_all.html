@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+    <ol>
+        {% if docs|length !=0 %}
+            {% for doc in docs %}
+                <li>{{ doc.get('name') }} - {{ doc.get('password') }}</li>
+            {% endfor %}
+        {% else %}
+            There are no records in the collection
+        {% endif %}
+    </ol>
+
+{% endblock content %}

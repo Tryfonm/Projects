@@ -1,0 +1,13 @@
+{% extends 'template.html' %}
+
+{% block content %}
+    <p1>This is the home page</p1>
+    <br>
+    <form method="post" action="/">
+        <button type="submit" name="create_user" value="create user">create user</button>
+        <button type="submit" name="list_collection_names" value="list collection names">list collection names</button>
+        <button type="submit" name="find_all" value="find all">find all</button>
+        <button type="submit" name="delete_by_name" value="delete by name">delete by name</button>
+    </form>
+
+{% endblock content %}

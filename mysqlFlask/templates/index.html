@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+
+{%  block content %}
+
+    <form action="" method="post">
+        <h2>This is the home page</h2>
+        <div>
+            <label>name:
+                <input type="text" name="name" placeholder="name">
+            </label>
+        </div>
+        <div>
+            <label>email:
+                <input type="email" name="email" placeholder="email">
+            </label>
+        </div>
+        <div>
+            <label>password:
+                <input type="password" name="password" placeholder="password">
+            </label>
+        </div>
+        <div>
+            <button type="submit">submit</button>
+        </div>
+    </form>
+
+{% endblock content %}
